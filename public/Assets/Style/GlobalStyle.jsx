@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: 'sf';
+    font-family: "sf";
     font-weight: 400;
     font-style: normal;
   }
