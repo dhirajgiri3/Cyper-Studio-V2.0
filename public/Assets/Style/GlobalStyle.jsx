@@ -35,12 +35,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: "sf";
     src: url("/Assets/Fonts/SFPRODISPLAYREGULAR.otf");
   }
-
-  * {
-    font-family: "sf";
-    font-weight: 400;
-    font-style: normal;
-  }
   
 `;
 

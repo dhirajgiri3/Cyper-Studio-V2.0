@@ -21,13 +21,11 @@ const ApproachStyle = styled.section`
   .creative-approach {
     color: var(--para);
     font-weight: 300;
-    /* padding-bottom: 7rem; */
     width: 70%;
     text-align: center;
 
     @media screen and (max-width : 768px) {
       width: 90%;
-      /* padding-bottom: 5rem; */
     }
 
     span {

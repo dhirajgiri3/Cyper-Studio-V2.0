@@ -12,7 +12,6 @@ const HeroContainer = styled.section`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    font-family: "sf";
 
     @media screen and (max-width : 768px) {
         padding: 0 2rem;

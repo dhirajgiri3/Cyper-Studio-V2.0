@@ -26,6 +26,7 @@ const HomeContainer = styled.section`
   justify-content: flex-start;
   background: var(--light);
   transition: background-color 0.5s ease; /* Transition for background color change */
+  font-family: "sf";
 
   .imgtrl {
     position: absolute;
