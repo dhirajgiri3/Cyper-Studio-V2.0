@@ -12,6 +12,7 @@ const DialogueContainer = styled.section`
   width: calc(100vw - 10rem);
   padding: 0 5rem;
   padding-top: 6rem;
+  font-family: "sf";
 
   @media screen and (max-width: 768px) {
     padding: 0 1rem;
