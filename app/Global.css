@@ -1,0 +1,29 @@
+:root {
+  --primary: #486bff;
+  --dark: #202126;
+  --light: #f2f5ff;
+  --grey: #b3b3b3;
+  --para: #7a7b7c;
+  --sm-para: #0000008f;
+  --black: #000000;
+  --white: #ffffff;
+  --whitel: #c9cdd8;
+  --sm: 0.75rem;
+  --nm: 1rem;
+  --lg: 1.5rem;
+  --xl: 2rem;
+  --xxl: 3rem;
+  --xxxl: 4rem;
+  --lxl: 5rem;
+}
+
+/* Global Resets and Basic Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}

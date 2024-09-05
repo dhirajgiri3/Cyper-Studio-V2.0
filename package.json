@@ -1,5 +1,5 @@
 {
-  "name": "cyper",
+  "name": "merged-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@gsap/react": "^2.1.1",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@react-three/drei": "^9.109.2",
+    "@react-three/fiber": "^8.16.8",
+    "@tabler/icons-react": "^3.13.0",
+    "cobe": "^0.6.3",
+    "framer-motion": "^11.3.30",
+    "gsap": "^3.12.5",
+    "icons-react": "^3.7.1",
+    "imagesloaded": "^5.0.0",
+    "lenis": "^1.1.9",
+    "next": "14.2.6",
+    "pixi.js": "^8.3.4",
+    "punycode": "^2.3.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.6"
+    "react-use-refs": "^1.0.1",
+    "splitting": "^1.1.0",
+    "styled-components": "^6.1.12",
+    "three": "^0.166.1",
+    "three-stdlib": "^2.32.1",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.1.4",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6"
   }
 }
