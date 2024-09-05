@@ -95,6 +95,7 @@ const HeroContainer = styled.section`
         p {
             color: var(--para);
             font-size: var(--nm);
+            font-weight: 400;
         }
     }
 `
