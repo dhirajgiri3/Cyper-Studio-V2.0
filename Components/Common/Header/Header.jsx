@@ -40,7 +40,7 @@ const Menu = styled.nav`
   align-items: center;
   gap: 3rem;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     display: none; /* Hide menu on mobile */
   }
 `;
@@ -50,6 +50,7 @@ const MenuItem = styled.a`
   text-decoration: none;
   color: var(--dark);
   font-size: var(--nm);
+  font-family: "sf";
   &:hover {
     color: var(--primary);
   }
