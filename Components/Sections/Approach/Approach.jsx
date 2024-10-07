@@ -99,7 +99,7 @@ const ApproachStyle = styled.section`
         padding: 1rem 2rem;
         background: var(--light);
         color: var(--dark);
-        font-weight: 700;
+        font-weight: 500;
         border-radius: 1rem;
         outline: none;
         border: none;

@@ -1,9 +1,9 @@
-
 import Link from 'next/link';
 import styled from 'styled-components';
 import "./Header.css"
 import logo from "@/public/Assets/Image/cyper-logo/cyper-dark-logo.png"
 import Image from 'next/image';
+import { useState } from 'react';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -172,8 +172,7 @@ const BarContainer = styled.div`
   }
 `;
 
-export default function Header({ onToggleSidebar })
-{
+export default function Header({ onToggleSidebar, isChecked }) {
   return (
     <HeaderContainer>
       <Link href="/">
@@ -198,7 +197,11 @@ export default function Header({ onToggleSidebar })
         <BarContainer>
           <div className="bar">
             <label className="hamburger">
-              <input type="checkbox" onClick={onToggleSidebar} />
+              <input 
+                type="checkbox" 
+                checked={isChecked}
+                onChange={onToggleSidebar}
+              />
               <svg viewBox="0 0 32 32">
                 <path
                   className="line line-top-bottom"
