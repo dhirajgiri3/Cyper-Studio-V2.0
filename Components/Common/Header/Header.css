@@ -14,7 +14,7 @@ a:focus {
 }
 
 a:focus:not(:focus-visible) {
-  background: transparent;
+  background: transparent; 
 }
 
 a:focus-visible {

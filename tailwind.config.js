@@ -1,0 +1,98 @@
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        transparent: 'transparent',
+        light: 'var(--light)',
+        dark: 'var(--dark)',
+        para: 'var(--para)',
+        neutral: {
+          50: 'var(--neutral-50)',
+          100: 'var(--neutral-100)',
+          200: 'var(--neutral-200)',
+          800: 'var(--neutral-800)',
+          900: 'var(--neutral-900)',
+        },
+        primary: {
+          50: 'var(--primary-50)',
+          100: 'var(--primary-100)',
+          light: 'var(--primary-light)',
+          DEFAULT: 'var(--primary)',
+          dark: 'var(--primary-dark)',
+        },
+        accent: {
+          1: 'var(--accent-1)',
+          2: 'var(--accent-2)',
+          3: 'var(--accent-3)',
+          gradient: 'var(--accent-gradient)',
+        },
+        semantic: {
+          success: 'var(--success)',
+          warning: 'var(--warning)',
+          danger: 'var(--danger)',
+          info: 'var(--info)',
+        },
+        text: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          tertiary: 'var(--text-tertiary)',
+        },
+      },
+      spacing: {
+        xs: 'var(--space-xs)',
+        sm: 'var(--space-sm)',
+        md: 'var(--space-md)',
+        lg: 'var(--space-lg)',
+        xl: 'var(--space-xl)',
+        '2xl': 'var(--space-2xl)',
+        '3xl': 'var(--space-3xl)',
+      },
+      transitionTimingFunction: {
+        'custom-ease': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      },
+      screens: {
+        xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      fontSize: {
+        xs: 'var(--text-xs)',
+        sm: 'var(--text-sm)',
+        base: 'var(--text-base)',
+        lg: 'var(--text-lg)',
+        xl: 'var(--text-xl)',
+        '2xl': 'var(--text-2xl)',
+        '3xl': 'var(--text-3xl)',
+        '4xl': 'var(--text-4xl)',
+        '5xl': 'var(--text-5xl)',
+      },
+      borderRadius: {
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+        '2xl': 'var(--radius-2xl)',
+      },
+      animation: {
+        gradient: 'gradient-shift 8s ease infinite',
+        float: 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      boxShadow: {
+        glow: '0 0 20px rgba(var(--primary-rgb), 0.35)',
+        hover: '0 8px 30px rgba(0, 0, 0, 0.12)',
+      },
+    },
+  },
+  plugins: [],
+}

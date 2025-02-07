@@ -1,65 +1,110 @@
-// components/PrimaryButton.js
-import styled from 'styled-components';
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from 'prop-types';
+import { motion, AnimatePresence } from "framer-motion";
+import { createRipples } from "./buttonEffects";
+import { ParticleEffect } from "./ParticleEffect";
+import { BorderGradient } from "./BorderGradient";
+import { BlobEffect } from "./BlobEffect";
+import { sizeClasses, variantClasses, glowEffects } from "./buttonStyles";
+import useMagneticEffect from "./useMagneticEffect";
 
-const Button = styled.button`
-  width: 145px;
-  height: 50px;
-  border-radius: 50px;
-  background-color: var(--primary);
-  border: 1.5px solid var(--primary);
-  overflow: hidden;
-  position: relative;
-  font-size: var(--sm);
-  font-weight: 500;
-  text-transform: uppercase;
-  transition: 300ms ease;
-  cursor: pointer;
-  color: var(--light);
-  outline: none;
+const PrimaryButton = ({
+  children,
+  size = "medium",
+  variant = "default",
+  className = "",
+  disabled = false,
+  withBlob = false,  // Changed default to false
+  withParticles = false,  // Changed default to false
+  onClick,
+  ...props
+}) => {
+  const [particles, setParticles] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+  const buttonRef = useRef(null);
+  const { magneticRef, handleMouseMove, handleMouseLeave } = useMagneticEffect();
 
-  p {
-    color: var(--light) !important;
-    position: relative;
-    z-index: 2; /* Ensure p tag is above the ::before pseudo-element */
-    font-size: var(--sm) !important;
-  }
+  const handleClick = (e) => {
+    if (disabled) return;
 
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: var(--light);
-    top: 100%;
-    left: 0;
-    transition: 500ms ease;
-  }
-
-  &:hover {
-    color: var(--light);
-    letter-spacing: 1.2px;
-    border-color: var(--primary);
-
-    p {
-        color: var(--primary) !important;
-        z-index: 3;
+    if (buttonRef.current) {
+      createRipples(e, buttonRef.current);
     }
-  }
 
-  &:hover::before {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-  }
-`;
+    if (withParticles) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const newParticles = Array.from({ length: 12 }, (_, i) => ({
+        id: `${Date.now()}-${i}`,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      }));
+      setParticles(newParticles);
+    }
 
-const PrimaryButton = ({ children }) => {
-    return <Button>
-        <p>{children}</p>
-    </Button>;
+    onClick?.(e);
+  };
+
+  useEffect(() => {
+    if (particles.length > 0) {
+      const timer = setTimeout(() => setParticles([]), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [particles]);
+
+  return (
+    <motion.div
+      ref={magneticRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative inline-block"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      <div className="relative">
+        {withBlob && isHovered && (
+          <div className="absolute inset-0 w-full h-full">
+            <BlobEffect intensity={0.8} />
+          </div>
+        )}
+        <button
+          ref={buttonRef}
+          className={`
+            relative overflow-hidden
+            transition-all duration-300 ease-out font-light
+            bordder-none outline-none
+            focus:outline-none focus:border-none focus:ring-2 focus:ring-white/20
+            disabled:cursor-not-allowed disabled:opacity-50
+            ${sizeClasses[size]}
+            ${variantClasses[variant]}
+            ${glowEffects[variant]}
+            ${className}
+          `}
+          onClick={handleClick}
+          disabled={disabled}
+          {...props}
+        >
+          <BorderGradient variant={variant} />
+          <span className="relative z-10 flex items-center justify-center gap-2 font-medium tracking-wide">
+            {children}
+          </span>
+          {withParticles && <ParticleEffect particles={particles} variant={variant} />}
+        </button>
+      </div>
+    </motion.div>
+  );
+};
+
+PrimaryButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'success', 'danger']),
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  withBlob: PropTypes.bool,
+  withParticles: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default PrimaryButton;

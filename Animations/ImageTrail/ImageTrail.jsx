@@ -6,8 +6,8 @@ import { gsap } from 'gsap';
 import Image from 'next/image';
 
 const ImageTrailWrapper = styled.div`
-  position: relative;
-  height: 100vh;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 `;
 
@@ -23,10 +23,12 @@ const ImageWrapper = styled.div`
   will-change: transform, filter;
 `;
 
-const ImageInner = styled(Image)`
+// Changed component from Image to div for background image support
+const ImageInner = styled.div`
   width: calc(100% + 20px);
   height: calc(100% + 20px);
   background-size: cover;
+  background-position: center;
   position: absolute;
   top: -10px;
   left: -10px;
