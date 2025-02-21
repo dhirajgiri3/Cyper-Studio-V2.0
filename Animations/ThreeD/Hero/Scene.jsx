@@ -1,21 +1,40 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
-import { Item4 } from './Item4';
 import styled from 'styled-components';
 
 const CanvasContainer = styled(Canvas)`
-    height: 70vh;
+    height: 100%; /* Change 'full' to '100vh' for appropriate styling */
     width: 100%;
+    position: relative;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 50vh;
+    }
 `
 
-const Scene = () =>
-{
+const Scene = ({ children }) => {
     return (
-        <CanvasContainer>
-            <ambientLight />
+        <CanvasContainer 
+            camera={{ position: [0, 0, 5], fov: 70 }}
+            shadows
+            dpr={[1, 2]}
+        >
+            <ambientLight intensity={0.8} />
+            <directionalLight
+                position={[5, 5, 5]}
+                castShadow
+                intensity={0.5}
+            />
             <Suspense fallback={null}>
-                <Item4 />
+                {children}
             </Suspense>
             <Environment preset='sunset' />
         </CanvasContainer>

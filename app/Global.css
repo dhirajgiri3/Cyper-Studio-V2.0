@@ -31,7 +31,7 @@
   --danger: #ef4444;
   --info: #6366f1;
   --light: #f9fafb;
-  --dark: #111827;
+  --dark: #1f2126;
 
   /* Text Colors */
   --text-primary: #171717;
@@ -83,6 +83,68 @@
     animation: ripple-effect 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     background: rgba(255, 255, 255, 0.35);
     pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .ripple-element {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    z-index: 10;
+    mix-blend-mode: overlay;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.4) 40%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    will-change: transform, opacity;
+    transform-origin: center;
+  }
+
+  .particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 20;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    mix-blend-mode: plus-lighter;
+  }
+
+  .button-container {
+    isolation: isolate;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform;
+    overflow: hidden;
+    border-radius: inherit;
+    position: relative;
+    z-index: 1;
+  }
+
+  .particle-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .magnetic-wrapper {
+    position: relative;
+    border-radius: inherit;
+    transform-style: preserve-3d;
+  }
+
+  .blob-wrapper {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   @keyframes ripple-effect {
@@ -101,6 +163,31 @@
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
+  }
+
+  @keyframes ripple {
+    to {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float-up {
+    to {
+      transform: translateY(-100%) scale(0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ripple-out {
+    0% {
+      transform: scale(0);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
   }
 
   .button-glow {
@@ -141,6 +228,64 @@
   .button-glow:hover::after {
     opacity: 1;
   }
+
+  .hardware-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+
+  .button-animate {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .particle-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    mix-blend-mode: plus-lighter;
+  }
+
+  .blob-effect {
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .magnetic-hover {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .button-animate {
+      transition-duration: 0.15s;
+    }
+    .ripple {
+      animation-duration: 0.3s;
+    }
+    .particle-container {
+      display: none;
+    }
+    .particle-wrapper {
+      display: none;
+    }
+    .ripple-element {
+      transition-duration: 0.3s;
+    }
+    .button-container {
+      transition: none;
+    }
+  }
 }
 
 /* Custom Utilities Layer */
@@ -175,4 +320,53 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
+}
+
+.magnetic-wrapper {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.magnetic-content {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.magnetic-item {
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+@keyframes blobFloating {
+  0% {
+    border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+    -webkit-border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+    -moz-border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+    -ms-border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+    -o-border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  }
+
+  50% {
+    border-radius: 30% 60% 70% 40%/50% 60% 30% 60%;
+  }
+
+  100% {
+    border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  }
+}
+
+/* Add hover state for container to enhance blob interaction */
+.perspective-1000:hover>div[class*="blur"] {
+  transition-duration: 0.3s;
+  filter: blur(calc(var(--blur-strength, 60) * 1px));
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
 }

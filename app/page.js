@@ -1,4 +1,4 @@
-import Home from "@/Components/Home/Home";
+import Home from "@/app/Components/Home/Home";
 import React from "react";
 import {Inter} from "next/font/google";
 

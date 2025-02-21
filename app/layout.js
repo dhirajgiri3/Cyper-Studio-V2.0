@@ -1,7 +1,8 @@
 import "./Global.css";
 import StyledComponentsRegistry from "@/Lib/registry";
-import HeaderSidebarWrapper from "@/Components/Common/Header/HeaderSidebarWrapper";
+import HeaderSidebarWrapper from "@/app/Components/Common/Header/HeaderSidebarWrapper";
 import GlobalStyle from "@/public/Assets/Style/GlobalStyle";
+import Footer from "./Components/Common/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <StyledComponentsRegistry>
           <HeaderSidebarWrapper />
           {children}
+          <Footer />
         </StyledComponentsRegistry>
         <GlobalStyle />
       </body>
