@@ -22,7 +22,6 @@ const PrimaryButton = ({
   withRipple = true,
   particleColor,
   blobColor,
-  // New customization props:
   rippleOptions = { duration: 600, color: 'rgba(255,255,255,0.8)' },
   additionalStyles = {},
   ...props
@@ -47,7 +46,7 @@ const PrimaryButton = ({
 
   const buttonClassNames = useMemo(() => `
     relative inline-flex items-center justify-center
-    font-medium tracking-wide
+    font-medium tracking-wide overflow-hidden whitespace-nowrap
     ${sizeClasses[size]}
     ${variantClasses[variant]}
     ${glowEffects[variant]}

@@ -149,7 +149,7 @@ const ProjectCard = ({ projectsData }) => {
       label: "Live Projects",
       type: "liveProjects",
       color: "from-gray-100 to-gray-100",
-      activeColor: "from-dark to-dark",
+      activeColor: "from-neutral-100 to-neutral-200",
       // icon: "🚀",
     },
     {
@@ -157,7 +157,7 @@ const ProjectCard = ({ projectsData }) => {
       label: "In Development",
       type: "inDevelopment",
       color: "from-gray-100 to-gray-100",
-      activeColor: "from-dark to-dark",
+      activeColor: "from-neutral-100 to-neutral-200",
       // icon: "⚡",
     },
     {
@@ -165,7 +165,7 @@ const ProjectCard = ({ projectsData }) => {
       label: "Coming Soon",
       type: "comingSoon",
       color: "from-gray-100 to-gray-100",
-      activeColor: "from-dark to-dark",
+      activeColor: "from-neutral-100 to-neutral-200", // updated activeColor
       // icon: "✨",
     },
   ];
@@ -185,17 +185,19 @@ const ProjectCard = ({ projectsData }) => {
 
   return (
     <div className="relative w-full mx-auto max-w-[2000px]">
-      {/* Enhanced Category Filter Controls */}
-      <div className="flex flex-col items-center mb-8 xs:mb-12 sm:mb-16">
+      {/* Remove all background gradient code that was here */}
+
+      {/* Enhanced Category Filter Controls with improved glass effect */}
+      <div className="relative flex flex-col items-center mb-8 xs:mb-12 sm:mb-16 z-10">
         <div className="relative flex flex-wrap justify-center gap-2 xs:gap-3 sm:gap-4 
                       p-1.5 xs:p-2 sm:p-3 
                       rounded-full
-                      bg-white/5 backdrop-blur-xl border border-gray-300/30
+                      bg-gradient-to-br from-neutral-700/30 via-neutral-800/20 to-neutral-900/30
+                      backdrop-blur-xl border border-white/10
                       w-[calc(100%-2rem)] xs:w-auto">
           {categories.map((category) => {
             const isActive = selectedCategory === category.id;
             const projectCount = projectsData?.[category.type]?.length || 0;
-
             return (
               <motion.button
                 key={category.id}
@@ -208,8 +210,7 @@ const ProjectCard = ({ projectsData }) => {
                   transition-all duration-500 ease-out
                   flex-1 xs:flex-none justify-center
                   min-w-[120px] xs:min-w-0
-                  hover:bg-gray-100/70
-                  ${isActive ? "text-white" : "text-black hover:text-black/70"}
+                  ${isActive ? "text-black/90" : "text-white hover:text-white/90"}
                 `}
                 whileTap={{ scale: 0.98 }}
               >
@@ -221,7 +222,6 @@ const ProjectCard = ({ projectsData }) => {
                     transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                   />
                 )}
-                <span className="relative mr-1">{category.icon}</span>
                 <span className="relative">{category.label}</span>
                 <span
                   className={`
@@ -229,8 +229,8 @@ const ProjectCard = ({ projectsData }) => {
                   transition-colors duration-300
                   ${
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-black text-white/90"
+                      ? "bg-black/90 text-white"
+                      : "bg-black text-white"
                   }
                 `}
                 >
@@ -246,7 +246,7 @@ const ProjectCard = ({ projectsData }) => {
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={selectedCategory}
-          className="relative"
+          className="relative z-10"
           variants={TRANSITION_VARIANTS}
           initial="initial"
           animate="animate"
@@ -254,6 +254,7 @@ const ProjectCard = ({ projectsData }) => {
         >
           <motion.div
             className={`
+              relative
               grid
               grid-cols-1
               xs:grid-cols-2
@@ -315,7 +316,9 @@ const ProjectCard = ({ projectsData }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="text-center py-12 xs:py-16 sm:py-20"
+            className="relative text-center py-12 xs:py-16 sm:py-20
+                     bg-gradient-to-br from-white/[0.08] to-white/[0.02]
+                     border border-white/10 rounded-3xl backdrop-blur-3xl"
           >
             <h3 className="text-xl xs:text-2xl font-medium text-white/90">
               No projects found in this category
@@ -667,12 +670,11 @@ const ProjectItem = ({ project, index, variant, totalProjects }) => {
             relative h-full w-full 
             rounded-[16px] xs:rounded-[20px] sm:rounded-[24px] 
             overflow-hidden
-            bg-gradient-to-br from-white/[0.08] to-white/[0.04]
-            backdrop-blur-sm border border-white/[0.08]
+            bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-transparent
+            backdrop-blur-xl
             transition-all duration-500 ease-out
-            group-hover:border-white/[0.15]
-            group-hover:from-white/[0.12] group-hover:to-white/[0.06]
-            group-hover:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]
+            group-hover:from-white/[0.12] group-hover:via-white/[0.08] group-hover:to-transparent
+            shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]
             ${variant === 'mobile' ? 'p-4 xs:p-5 sm:p-6' : ''}
           `}
           style={{
@@ -681,6 +683,15 @@ const ProjectItem = ({ project, index, variant, totalProjects }) => {
           }}
           variants={ANIMATION_VARIANTS.card}
         >
+          {/* Add multiple gradient layers */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/[0.07] to-purple-500/[0.07]" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/[0.05] to-transparent" />
+            <div className="absolute inset-0 border border-white/10 rounded-[16px] xs:rounded-[20px] sm:rounded-[24px]
+                          group-hover:border-white/20 transition-colors duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
+          </div>
+
           {/* Background Image with Enhanced Parallax */}
           <motion.div
             ref={imageRef}

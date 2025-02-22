@@ -1,7 +1,7 @@
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './Components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
@@ -103,6 +103,12 @@ module.exports = {
         'glow-pulse': 'glow 2s ease-in-out infinite',
         'slide-up': 'slideUp 0.5s ease-out',
         'spin-slow': 'spin 15s linear infinite',
+        'float-particles': 'floatParticles 20s ease infinite',
+        'glow-pulse-slow': 'glowPulse 4s ease-in-out infinite',
+        'morph': 'morphGradient 10s ease infinite',
+        'toast-enter': 'toast-enter 0.3s ease-out',
+        'toast-leave': 'toast-leave 0.3s ease-in',
+        'form-pulse': 'form-pulse 2s infinite',
       },
       keyframes: {
         shimmer: {
@@ -123,7 +129,39 @@ module.exports = {
         slideUp: {
           '0%': { transform: 'translateY(20px)', opacity: 0 },
           '100%': { transform: 'translateY(0)', opacity: 1 },
-        }
+        },
+        floatParticles: {
+          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+          '25%': { transform: 'translateY(-10px) translateX(10px)' },
+          '50%': { transform: 'translateY(0) translateX(0)' },
+          '75%': { transform: 'translateY(10px) translateX(-10px)' },
+        },
+        glowPulse: {
+          '0%, 100%': { opacity: 0.4 },
+          '50%': { opacity: 0.8 },
+        },
+        morphGradient: {
+          '0%, 100%': { 
+            'background-size': '200% 200%',
+            'background-position': '0% 50%'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': '100% 50%'
+          },
+        },
+        'toast-enter': {
+          '0%': { transform: 'translateY(-1rem)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'toast-leave': {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(-1rem)', opacity: '0' },
+        },
+        'form-pulse': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.01)' },
+        },
       },
       boxShadow: {
         glow: '0 0 20px rgba(var(--primary-rgb), 0.35)',
@@ -161,10 +199,16 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'cool-gradient': 'linear-gradient(45deg, var(--primary), var(--accent-1))',
         'mesh-pattern': 'url("data:image/svg+xml,%3Csvg width="20" height="20" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h20v20H0z" fill="%23FFFFFF" fill-opacity="0.05"/%3E%3C/svg%3E")',
+        'glass-gradient': 'linear-gradient(120deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))',
+        'glow-sphere': 'radial-gradient(circle at center, rgba(var(--primary-rgb), 0.15), transparent 70%)',
       },
       backdropBlur: {
         'xs': '2px',
-      }
+      },
+      backdropFilter: {
+        'none': 'none',
+        'blur': 'blur(8px)',
+      },
     },
   },
   plugins: [
@@ -175,6 +219,14 @@ module.exports = {
         },
         '.transform-gpu': {
           transform: 'translate3d(0, 0, 0)',
+        },
+        '.glass-morphism': {
+          'backdrop-filter': 'blur(12px)',
+          'background': 'rgba(255, 255, 255, 0.05)',
+          'border': '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.text-shadow-glow': {
+          'text-shadow': '0 0 20px rgba(var(--primary-rgb), 0.5)',
         },
       })
     },

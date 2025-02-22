@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import PrimaryButton from "@/app/Components/Buttons/PrimaryButton";
+import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,25 +32,6 @@ function Story() {
   const animatedTextRef2 = useRef(null);
 
   useEffect(() => {
-    const element = videoRef.current;
-    gsap.fromTo(
-      element,
-      { scale: 0.95, y: "3rem" },
-      {
-        scale: 1,
-        y: 0,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 80%",
-          end: "bottom 50%",
-          scrub: true,
-        },
-      }
-    );
-  }, []);
-
-  useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5, ease: "power2.out" });
     if (animatedTextRef1.current) {
       tl.to(animatedTextRef1.current.querySelectorAll("span"), {
@@ -72,15 +55,36 @@ function Story() {
     }
   }, []);
 
+  const revealVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-10 w-full px-6 sm:px-10 md:px-20 lg:px-32 py-16 pt-8 relative">
         {/* Story Left */}
         <div className="flex flex-col items-center justify-center gap-8 flex-1 text-center md:text-left">
-          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-dark to-para bg-clip-text text-transparent">
+          <motion.h1 
+            className="text-2xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-dark to-black/90 bg-clip-text text-transparent"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={revealVariants}
+          >
             Our Story
-          </h1>
-          <div className="relative w-40 h-40 sm:w-[14rem] sm:h-[14rem] md:w-[18rem] md:h-[18rem] lg:w-[22rem] lg:h-[22rem] rounded-full overflow-hidden flex justify-center items-center">
+          </motion.h1>
+          <motion.div 
+            className="relative w-40 h-40 sm:w-[14rem] sm:h-[14rem] md:w-[18rem] md:h-[18rem] lg:w-[22rem] lg:h-[22rem] rounded-full overflow-hidden flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <video
               ref={videoRef}
               className="w-40 h-40 sm:w-[14rem] sm:h-[14rem] md:w-[18rem] md:h-[18rem] lg:w-[22rem] lg:h-[22rem] object-cover rounded-full transition-transform duration-500 hover:scale-105"
@@ -90,25 +94,47 @@ function Story() {
               playsInline
               src="https://firebasestorage.googleapis.com/v0/b/cyper-studio.appspot.com/o/Cyper-3d.mp4?alt=media&token=4115996f-f023-4560-8dc9-20d1437327d9"
             />
-          </div>
+          </motion.div>
         </div>
+
         {/* Story Right */}
-        <div className="flex flex-col gap-6 flex-1 md:pl-12 text-center md:text-left">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+          }}
+          className="flex flex-col gap-6 flex-1 md:pl-12 text-center md:text-left"
+        >
+          {/* Keep existing AnimatedText components unchanged */}
           <p className="text-nm sm:text-base md:text-base font-light text-gray-700 leading-relaxed">
             <AnimatedText
-              text="At Cyper Studio, we believe in one thing—your success. We're not just another tech company; we're your dedicated partners in innovation."
+              text="Cyper Studio was born out of a passion for technology and a desire to make a difference. Founded by a team of visionary entrepreneurs, we set out to create digital solutions that not only solve problems but also inspire and empower."
               innerRef={animatedTextRef1}
             />
           </p>
           <p className="text-nm sm:text-base md:text-base font-light text-gray-700 leading-relaxed">
             <AnimatedText
-              text="Whether you're starting fresh or scaling up, we're here to deliver top-tier solutions at prices that won't make you faint. And hey, we're not newbies—we've got the experience to back it up, and we're just getting started."
+              text="From our humble beginnings, we've grown to become a trusted partner for businesses around the world, delivering innovative products that drive success."
               innerRef={animatedTextRef2}
             />
           </p>
-        </div>
+          <motion.div
+            variants={revealVariants}
+          >
+            <PrimaryButton
+              variant="primary"
+              size="large"
+              withParticles={true}
+              withRipple={true}
+            >
+              Learn More
+            </PrimaryButton>
+          </motion.div>
+        </motion.div>
       </div>
-      {/* <hr className="mx-auto w-[80%] border-0 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent" /> */}
     </>
   );
 }

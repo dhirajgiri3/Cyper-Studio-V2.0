@@ -44,7 +44,7 @@ function Hero() {
 
   return (
     <StyledHero
-      className="min-h-screen w-full max-w-[1440px] mx-auto px-8 md:px-20 py-32 md:py-4 pb-0 flex flex-col justify-center items-center gap-16 relative overflow-hidden"
+      className="min-h-screen w-full max-w-[1440px] mx-auto px-8 md:px-20 py-32 md:py-4 pb-0 md:pt-32 grid gap-16 relative overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -52,17 +52,15 @@ function Hero() {
       <div className="background-trail absolute inset-0 -z-10">
         <ImageTrail />
       </div>
-      <div className="hero-top w-full flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
+      <div className="hero-top w-full grid grid-cols-1 md:grid-cols-2 gap-12">
         <motion.div
-          className="texts flex-1 max-w-[600px] flex flex-col gap-8"
+          className="texts flex flex-col gap-8"
           variants={itemVariants}
         >
           <h1 className="text-[2.5rem] md:text-[4rem] leading-tight font-semibold font-clash text-black tracking-tight">
             Where{" "}
             <motion.span
               className="font-playfair font-medium italic text-neutral-800 inline-block"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
             >
               Innovation
             </motion.span>{" "}
@@ -70,8 +68,6 @@ function Hero() {
             Meets{" "}
             <motion.span
               className="font-playfair font-medium italic text-neutral-800 inline-block"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
             >
               Passion
             </motion.span>
@@ -98,7 +94,7 @@ function Hero() {
         </motion.div>
 
         <div
-          className="threed flex-1 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center relative" // updated responsive height classes
+          className="threed h-[300px] sm:h-[400px] md:h-[500px] flex justify-center items-center relative"
         >
           <div className="w-full h-full">
             <Scene children={<Item9 />} />
@@ -112,8 +108,6 @@ function Hero() {
       >
         <motion.p
           variants={itemVariants}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.2 }}
         >
           We love to bring smiles to people's faces, and that's our job—yep,
           we're serious! 😉
@@ -125,7 +119,7 @@ function Hero() {
             withParticles={true}
             withRipple={true}
           >
-            Click Me
+            Start Your Project
           </PrimaryButton>
         </motion.div>
       </motion.div>

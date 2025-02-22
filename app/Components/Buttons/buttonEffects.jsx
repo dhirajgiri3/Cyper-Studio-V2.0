@@ -27,6 +27,8 @@ export const createRipples = (event, button) => {
       top: ${y - size / 2}px;
       width: ${size}px;
       height: ${size}px;
+      border-radius: 50%;
+      pointer-events: none;
       background: radial-gradient(
         circle,
         rgba(255, 255, 255, 0.8) 0%,
@@ -36,6 +38,12 @@ export const createRipples = (event, button) => {
       transform: scale(0);
       opacity: 0.8;
     `;
+
+    // Ensure button has relative positioning
+    if (getComputedStyle(button).position === 'static') {
+      button.style.position = 'relative';
+    }
+    button.style.overflow = 'hidden';
 
     button.appendChild(ripple);
 
@@ -59,6 +67,17 @@ export const createRipples = (event, button) => {
 };
 
 export const buttonEffects = {
+  ripple: css`
+    position: relative;
+    overflow: hidden;
+    
+    .ripple-element {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+  `,
+
   magnetic: css`
     will-change: transform;
     transform: translate3d(0, 0, 0);

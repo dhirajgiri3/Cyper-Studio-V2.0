@@ -466,8 +466,10 @@ const Title = () => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
-      titleRef.current.removeEventListener("mousemove", handleMouseMove);
-      titleRef.current.removeEventListener("mouseleave", handleMouseLeave);
+      if (titleRef.current) {
+        titleRef.current.removeEventListener("mousemove", handleMouseMove);
+        titleRef.current.removeEventListener("mouseleave", handleMouseLeave);
+      }
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);

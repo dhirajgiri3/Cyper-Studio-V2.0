@@ -16,8 +16,7 @@ export const variantClasses = {
     transition-all duration-300 ease-out
   `,
   primary: `
-    // bg-gradient-to-r from-primary-dark via-primary to-primary-light
-    bg-dark
+    bg-gradient-to-r from-primary-dark via-primary to-primary-light
     text-white 
     border border-primary/10
     hover:border-primary-light/30
